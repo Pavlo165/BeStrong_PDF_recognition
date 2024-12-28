@@ -11,7 +11,7 @@
 variable "resource_group_name" {
   description = "The name of the resource group"  # 🏷️ Name of the resource group in Azure
   type        = string
-  default     = "bestrongcluster"  # 🌍 Default resource group name
+  default     = "PDF_recognition"  # 🌍 Default resource group name
 }
 
 # 🌍 Location of Resources
