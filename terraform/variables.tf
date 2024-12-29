@@ -20,3 +20,9 @@ variable "location" {
   type        = string
   default     = "northeurope"  # 🌍 Default location
 }
+
+variable "storage-name" {
+  description = "Name for storage account"
+  type        = string
+  default     = "storage4252"
+}

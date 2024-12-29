@@ -1,12 +1,12 @@
 # 📦 Creating a Resource Group
 resource "azurerm_resource_group" "main" {
-  name     = var.resource_group_name   # 🏷️ Name of the Resource Group
+  name     = "${var.resource_group_name}-${terraform.workspace}"   # 🏷️ Name of the Resource Group
   location = var.location              # 🌍 Azure region where resources will be created
 }
 
 # 📦 Storage Account
 resource "azurerm_storage_account" "storage_account" {
-  name                     = "storage4252"
+  name                     = "${var.storage-name}env${terraform.workspace}"
   resource_group_name      = azurerm_resource_group.main.name
   location                 = azurerm_resource_group.main.location
   account_tier             = "Standard"
@@ -15,7 +15,7 @@ resource "azurerm_storage_account" "storage_account" {
 
 resource "azurerm_storage_container" "blob_container" {
   name                  = "documents-container"
-  storage_account_id  = azurerm_storage_account.storage_account.id
+  storage_account_id    = azurerm_storage_account.storage_account.id
   container_access_type = "private"
 }
 
@@ -27,7 +27,7 @@ resource "azurerm_storage_share" "file_share" {
 
 # 📦 App Service Plan
 resource "azurerm_app_service_plan" "app_service_plan" {
-  name                = "infra-service-plan"
+  name                = "infra-service-plan-${terraform.workspace}"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   kind                = "FunctionApp"
@@ -40,7 +40,7 @@ resource "azurerm_app_service_plan" "app_service_plan" {
 
 # 📦 Linux Function App for Python
 resource "azurerm_linux_function_app" "function_app" {
-  name                       = "infra-function-app"
+  name                       = "infra-function-app-${terraform.workspace}"
   location                   = azurerm_resource_group.main.location
   resource_group_name        = azurerm_resource_group.main.name
   service_plan_id            = azurerm_app_service_plan.app_service_plan.id
@@ -65,7 +65,7 @@ resource "azurerm_linux_function_app" "function_app" {
 
 # 📦 Cognitive Services Account
 resource "azurerm_cognitive_account" "document_intelligence" {
-  name                = "infra-ai-doc-intelligence"
+  name                = "infra-ai-doc-intelligence-${terraform.workspace}"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   kind                = "FormRecognizer"
