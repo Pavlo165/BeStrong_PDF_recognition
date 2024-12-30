@@ -36,7 +36,6 @@ stages:
               backendAzureRmContainerName: $(backendContainer)
               backendAzureRmKey: $(backendKey)
             displayName: "Terraform Init"
-            workingDirectory: $(System.DefaultWorkingDirectory)/terraform
 
           # Валідація Terraform файлів
           - task: TerraformTaskV4@4
@@ -44,7 +43,6 @@ stages:
               provider: 'azurerm'
               command: 'validate'
             displayName: "Terraform Validate"
-            workingDirectory: $(System.DefaultWorkingDirectory)/terraform
 
           # Виконання Terraform Plan
           - task: TerraformTaskV4@4
@@ -53,4 +51,3 @@ stages:
               command: 'plan'
               environmentServiceNameAzureRM: $(ServiceConnection)
             displayName: "Terraform Plan"
-            workingDirectory: $(System.DefaultWorkingDirectory)/terraform
