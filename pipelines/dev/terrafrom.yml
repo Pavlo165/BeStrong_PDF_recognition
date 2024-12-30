@@ -13,7 +13,7 @@ variables:
 
 stages:
   - stage: Plan
-    displayName: "Terraform plan on PR"
+    displayName: "Terraform plan on dev"
     jobs:
       - job: PR_Plan
         displayName: "Terraform Plan on PR"
@@ -22,8 +22,7 @@ stages:
         steps:
           - script: |
               cd terraform
-              terraform workspace select dev || terraform workspace new dev
-            displayName: "Select/Create Terraform Workspace"
+            displayName: "Change dir"
 
           # Ініціалізація Terraform
           - task: TerraformTaskV4@4
@@ -36,6 +35,10 @@ stages:
               backendAzureRmContainerName: $(backendContainer)
               backendAzureRmKey: $(backendKey)
             displayName: "Terraform Init"
+          
+          - script: |
+              terraform workspace select dev || terraform workspace new dev
+            displayName: "Select/Create Terraform Workspace"
 
           # Валідація Terraform файлів
           - task: TerraformTaskV4@4
