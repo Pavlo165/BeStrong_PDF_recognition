@@ -1,0 +1,62 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - "*"
+
+variables:
+- group: terrafrom_var
+- group: Azure
+
+stages:
+  - stage: Plan
+    displayName: "Terraform plan on PR"
+    jobs:
+      - job: PR_Plan
+        displayName: "Terraform Plan on PR"
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          # Встановлення Terraform workspace
+          - script: |
+              terraform workspace select dev || terraform workspace new dev
+            workingDirectory: terraform
+            displayName: "Select/Create Terraform Workspace"
+
+          # Ініціалізація Terraform у директорії `terraform`
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: $(ServiceConnection)
+              backendAzureRmResourceGroupName: $(backendGroup)
+              backendAzureRmStorageAccountName: $(backendStorage)
+              backendAzureRmContainerName: $(backendContainer)
+              backendAzureRmKey: $(backendKey)
+            workingDirectory: terraform
+            displayName: "Terraform Init"
+
+          # Валідація Terraform файлів у директорії `terraform`
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+            workingDirectory: terraform
+            displayName: "Terraform Validate"
+
+          # Виконання `terraform plan` для workspace `dev`
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: $(ServiceConnection)
+            workingDirectory: terraform
+            displayName: "Terraform Plan"
+            env:
+              TF_VAR_login_for_sql: $(TF_VAR_login_for_sql)
+              TF_VAR_password_for_sql: $(TF_VAR_password_for_sql)
+              TF_VAR_org_ip: $(TF_VAR_org_ip)
