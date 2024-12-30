@@ -20,13 +20,12 @@ stages:
         pool:
           vmImage: 'ubuntu-latest'
         steps:
-          # Встановлення Terraform workspace
           - script: |
+              cd terraform
               terraform workspace select dev || terraform workspace new dev
-            workingDirectory: terraform
             displayName: "Select/Create Terraform Workspace"
 
-          # Ініціалізація Terraform у директорії `terraform`
+          # Ініціалізація Terraform
           - task: TerraformTaskV4@4
             inputs:
               provider: 'azurerm'
@@ -36,22 +35,22 @@ stages:
               backendAzureRmStorageAccountName: $(backendStorage)
               backendAzureRmContainerName: $(backendContainer)
               backendAzureRmKey: $(backendKey)
-            workingDirectory: terraform
             displayName: "Terraform Init"
+            workingDirectory: $(System.DefaultWorkingDirectory)/terraform
 
-          # Валідація Terraform файлів у директорії `terraform`
+          # Валідація Terraform файлів
           - task: TerraformTaskV4@4
             inputs:
               provider: 'azurerm'
               command: 'validate'
-            workingDirectory: terraform
             displayName: "Terraform Validate"
+            workingDirectory: $(System.DefaultWorkingDirectory)/terraform
 
-          # Виконання `terraform plan` для workspace `dev`
+          # Виконання Terraform Plan
           - task: TerraformTaskV4@4
             inputs:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: $(ServiceConnection)
-            workingDirectory: terraform
             displayName: "Terraform Plan"
+            workingDirectory: $(System.DefaultWorkingDirectory)/terraform
