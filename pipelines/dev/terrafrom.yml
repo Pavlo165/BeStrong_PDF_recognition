@@ -55,3 +55,61 @@ stages:
               environmentServiceNameAzureRM: $(ServiceConnection)
               workingDirectory: $(System.DefaultWorkingDirectory)/terraform
             displayName: "Terraform Plan"
+          
+          # Розгортання змін
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: $(ServiceConnection)
+              commandOptions: '-auto-approve'
+              workingDirectory: $(System.DefaultWorkingDirectory)/terraform
+            displayName: "Terraform Apply"
+
+# розкометую коли буде env
+# - stage: Apply
+#     displayName: "Apply Terraform"
+#     dependsOn: Plan
+#     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+#     jobs:
+#       - deployment: ApplyTerraform
+#         displayName: "Terraform Apply"
+#         environment: "dev"
+#         pool:
+#           vmImage: 'ubuntu-latest'
+#         strategy:
+#           runOnce:
+#             deploy:
+#               steps:
+#                 # Перевірка репозиторію
+#                 - checkout: self
+#                   displayName: "Checkout repository"
+
+#                 # Ініціалізація Terraform
+#                 - task: TerraformTaskV4@4
+#                   inputs:
+#                     provider: 'azurerm'
+#                     command: 'init'
+#                     backendServiceArm: $(ServiceConnection)
+#                     backendAzureRmResourceGroupName: $(backendGroup)
+#                     backendAzureRmStorageAccountName: $(backendStorage)
+#                     backendAzureRmContainerName: $(backendContainer)
+#                     backendAzureRmKey: $(backendKey)
+#                     workingDirectory: $(System.DefaultWorkingDirectory)/terraform
+#                   displayName: "Terraform Init"
+                
+#                 # Вибір або створення workspace
+#                 - script: |
+#                     terraform workspace select dev || terraform workspace new dev
+#                   displayName: "Select/Create Terraform Workspace"
+#                   workingDirectory: $(System.DefaultWorkingDirectory)/terraform
+
+#                 # Розгортання змін
+#                 - task: TerraformTaskV4@4
+#                   inputs:
+#                     provider: 'azurerm'
+#                     command: 'apply'
+#                     environmentServiceNameAzureRM: $(ServiceConnection)
+#                     commandOptions: '-auto-approve'
+#                     workingDirectory: $(System.DefaultWorkingDirectory)/terraform
+#                   displayName: "Terraform Apply"
