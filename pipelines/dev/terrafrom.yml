@@ -22,7 +22,7 @@ stages:
     displayName: "Terraform plan on dev"
     jobs:
       - job: PR_Plan
-        displayName: "Terraform Plan on PR"
+        displayName: "Terraform Plan on DEV"
         pool:
           vmImage: 'ubuntu-latest'
         steps:
