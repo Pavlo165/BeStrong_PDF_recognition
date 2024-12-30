@@ -9,7 +9,6 @@ pr:
       - "*"
 
 variables:
-- group: terrafrom_var
 - group: Azure
 
 stages:
@@ -56,7 +55,3 @@ stages:
               environmentServiceNameAzureRM: $(ServiceConnection)
             workingDirectory: terraform
             displayName: "Terraform Plan"
-            env:
-              TF_VAR_login_for_sql: $(TF_VAR_login_for_sql)
-              TF_VAR_password_for_sql: $(TF_VAR_password_for_sql)
-              TF_VAR_org_ip: $(TF_VAR_org_ip)
