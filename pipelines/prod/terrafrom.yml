@@ -1,10 +1,10 @@
-trigger:
-  branches:
-    include:
-      - prod
-  paths:
-    include:
-      - terraform/**
+# trigger:
+#   branches:
+#     include:
+#       - prod
+#   paths:
+#     include:
+#       - terraform/**
 
 pr:
   branches:
