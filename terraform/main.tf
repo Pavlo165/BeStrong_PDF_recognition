@@ -49,12 +49,12 @@ resource "azurerm_linux_function_app" "function_app" {
 
   site_config {
     application_stack {
-      python_version = "3.9" # Вказуємо версію Python
+      python_version = "3.9" # Вказуємо версію 3.9 Python
     }
   }
 
   app_settings = {
-    "FUNCTIONS_WORKER_RUNTIME" = "python" # тест
+    "FUNCTIONS_WORKER_RUNTIME" = "python" # тест V2
     "WEBSITE_RUN_FROM_PACKAGE" = "1"     # Налаштування для запуску із пакету 
   }
 
