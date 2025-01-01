@@ -9,10 +9,11 @@ trigger:
 pr:
   branches:
     include:
-      - "*"
+      - main
   paths:
     include:
       - terraform/**
+
 
 variables:
 - group: Azure
