@@ -6,6 +6,11 @@ trigger:
     include:
       - terraform/**
 
+pr:
+  branches:
+    exclude:
+      - "*"
+
 variables:
 - group: Azure
 
