@@ -58,7 +58,7 @@ resource "azurerm_linux_function_app" "function_app" {
     "WEBSITE_RUN_FROM_PACKAGE"          = "1"     # Налаштування для запуску із пакету 
     "AZURE_STORAGE_CONNECTION_STRING"   = azurerm_storage_account.storage_account.primary_connection_string
     "AZURE_FILE_SHARE_NAME"             = azurerm_storage_share.file_share.name
-    "AZURE_FILE_PATH"                   = "/path/to/your/file" # Replace with actual file path?
+    "AZURE_FILE_PATH"                   = "/path/to/your/file" # Replace with actual file path???
     "AZURE_BLOB_CONTAINER_NAME"         = azurerm_storage_container.blob_container.name
     "AZURE_FORM_RECOGNIZER_ENDPOINT"    = azurerm_cognitive_account.document_intelligence.endpoint
     "AZURE_FORM_RECOGNIZER_KEY"         = azurerm_cognitive_account.document_intelligence.primary_access_key
