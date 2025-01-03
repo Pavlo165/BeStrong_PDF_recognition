@@ -27,7 +27,7 @@ stages:
     steps:
     - script: |
         # Створення архіву з папки app/pdf_recon
-        tar -czf pdf_recon_archive.tar.gz -C $(Build.SourcesDirectory)/app/pdf_recon .
+        tar -czf pdf_recog_archive.tar.gz -C $(Build.SourcesDirectory)/app/pdf_recog .
       displayName: 'Create Archive'
 
     - task: AzureCLI@2
@@ -37,4 +37,4 @@ stages:
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
-          az functionapp deployment source config-zip --name infra-function-app-dev --resource-group PDF_recognition-dev --src pdf_recon_archive.tar.gz
+          az functionapp deployment source config-zip --name infra-function-app-dev --resource-group PDF_recognition-dev --src pdf_recog_archive.tar.gz
