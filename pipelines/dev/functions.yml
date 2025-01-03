@@ -27,8 +27,9 @@ stages:
     steps:
     - script: |
         # Створення архіву з папки app/pdf_recon
-        zip -r pdf_recog_archive.zip . -i $(Build.SourcesDirectory)/app/pdf_recog/*
+        zip -r pdf_recog_archive.zip .
       displayName: 'Create Archive'
+      workingDirectory: $(System.DefaultWorkingDirectory)/app/pdf_recog
 
     - task: AzureCLI@2
       displayName: "Login to Azure and push actifact"
@@ -38,3 +39,4 @@ stages:
         scriptLocation: inlineScript
         inlineScript: |
           az functionapp deployment source config-zip --name infra-function-app-dev --resource-group PDF_recognition-dev --src pdf_recog_archive.zip --build-remote
+      workingDirectory: $(System.DefaultWorkingDirectory)/app/pdf_recog
