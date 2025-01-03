@@ -16,7 +16,7 @@ FORM_RECOGNIZER_KEY = os.getenv("AZURE_FORM_RECOGNIZER_KEY")
 app = func.FunctionApp()
 
 @app.function_name(name="mytimer")
-@app.timer_trigger(schedule="*/30 * * * * *", 
+@app.timer_trigger(schedule="*/35 * * * * *", 
               arg_name="mytimer",
               run_on_startup=True)
 def test_function(mytimer: func.TimerRequest) -> None:
