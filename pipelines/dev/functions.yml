@@ -27,7 +27,7 @@ stages:
     steps:
     - script: |
         # Створення архіву з папки app/pdf_recon
-        zip -r pdf_recog_archive.zip $(Build.SourcesDirectory)/app/pdf_recog
+        zip -r pdf_recog_archive.zip . -i $(Build.SourcesDirectory)/app/pdf_recog/*
       displayName: 'Create Archive'
 
     - task: AzureCLI@2
