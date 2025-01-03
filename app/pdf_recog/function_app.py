@@ -20,7 +20,7 @@ app = func.FunctionApp()
               arg_name="mytimer",
               run_on_startup=True)
 def test_function(mytimer: func.TimerRequest) -> None:
-    print("VSE OKKKK")
+    print("VSE OK")
     logging.info('Function completed')
 
     # try:
