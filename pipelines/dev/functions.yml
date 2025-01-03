@@ -33,7 +33,7 @@ stages:
     - task: AzureCLI@2
       displayName: "Login to Azure and push actifact"
       inputs:
-        azureSubscription: "lnu_sub"
+        azureSubscription: $(ServiceConnection)
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
