@@ -26,6 +26,6 @@ def test_function(mytimer: func.TimerRequest) -> None:
         # Download PDF from Azure File Share
         file_client = ShareFileClient.from_connection_string(STORAGE_CONNECTION_STRING, share_name=SHARE_NAME, file_path=FILE_PATH)
         pdf_data = file_client.download_file().readall()
-        print("file download")
+        print("file download successfully")
     except Exception as e:
         logging.error(f"Error processing PDF: {e}")
