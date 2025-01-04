@@ -10,7 +10,7 @@ from azure.core.credentials import AzureKeyCredential
 
 STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 SHARE_NAME = os.getenv("AZURE_FILE_SHARE_NAME")
-DIRECTORY_PATH = os.getenv("AZURE_FILE_PATH")  # Тепер це шлях до директорії
+#FILE_PATH = os.getenv("AZURE_FILE_PATH")  # Тепер це шлях до директорії
 BLOB_CONTAINER_NAME = os.getenv("AZURE_BLOB_CONTAINER_NAME")
 FORM_RECOGNIZER_ENDPOINT = os.getenv("AZURE_FORM_RECOGNIZER_ENDPOINT")
 FORM_RECOGNIZER_KEY = os.getenv("AZURE_FORM_RECOGNIZER_KEY")
@@ -26,7 +26,7 @@ def test_function(mytimer: func.TimerRequest) -> None:
     try:
         # Підключення до директорії у File Share
         directory_client = ShareDirectoryClient.from_connection_string(
-            STORAGE_CONNECTION_STRING, share_name=SHARE_NAME, directory_path=DIRECTORY_PATH
+            STORAGE_CONNECTION_STRING, share_name=SHARE_NAME, directory_path=None
         )
 
         # Отримуємо список файлів у директорії
@@ -42,7 +42,7 @@ def test_function(mytimer: func.TimerRequest) -> None:
 
             # Завантаження файлу
             file_client = ShareFileClient.from_connection_string(
-                STORAGE_CONNECTION_STRING, share_name=SHARE_NAME, file_path=os.path.join(DIRECTORY_PATH, file_name)
+                STORAGE_CONNECTION_STRING, share_name=SHARE_NAME, file_path=file_name
             )
             pdf_data = file_client.download_file().readall()
             logging.info(f"File {file_name} downloaded successfully.")
