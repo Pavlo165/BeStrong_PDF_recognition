@@ -13,8 +13,14 @@ resource "azurerm_storage_account" "storage_account" {
   account_replication_type = "LRS"
 }
 
-resource "azurerm_storage_container" "blob_container" {
-  name                  = "documents-container"
+resource "azurerm_storage_container" "blob_container_import" {
+  name                  = "import"
+  storage_account_id    = azurerm_storage_account.storage_account.id
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "blob_container_archive" {
+  name                  = "archive"
   storage_account_id    = azurerm_storage_account.storage_account.id
   container_access_type = "private"
 }
@@ -65,9 +71,8 @@ resource "azurerm_linux_function_app" "function_app" {
     "FUNCTIONS_WORKER_RUNTIME"               = "python" # runtime
     "WEBSITE_RUN_FROM_PACKAGE"               = "1"     # Налаштування для запуску із пакету 
     "AZURE_STORAGE_CONNECTION_STRING"        = azurerm_storage_account.storage_account.primary_connection_string
-    "AZURE_FILE_SHARE_NAME"                  = azurerm_storage_share.file_share.name
-    "AZURE_FILE_PATH"                        = "" # Replace with actual file path
-    "AZURE_BLOB_CONTAINER_NAME"              = azurerm_storage_container.blob_container.name
+    "AZURE_BLOB_CONTAINER_NAME_ARCHIVE"      = azurerm_storage_container.blob_container_archive.name
+    "AZURE_BLOB_CONTAINER_NAME_IMPORT"       = azurerm_storage_container.blob_container_import.name
     "AZURE_FORM_RECOGNIZER_ENDPOINT"         = azurerm_cognitive_account.document_intelligence.endpoint
     "AZURE_FORM_RECOGNIZER_KEY"              = azurerm_cognitive_account.document_intelligence.primary_access_key
     "APPLICATION_INSIGHTS_CONNECTION_STRING" = azurerm_application_insights.function_app_insights.connection_string

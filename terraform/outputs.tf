@@ -13,7 +13,7 @@ output "storage_account_primary_key" {
 # Output для Storage Container
 output "blob_container_name" {
   description = "The name of the created Blob Container"
-  value       = azurerm_storage_container.blob_container.name
+  value       = azurerm_storage_container.blob_container_archive.name
 }
 
 # Output для App Service Plan
