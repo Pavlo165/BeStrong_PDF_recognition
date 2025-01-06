@@ -6,7 +6,7 @@
       "type": "blobTrigger",
       "direction": "in",
       "path": "import/{name}",
-      "connection": "storage4252envdev_STORAGE"
+      "connection": "AZURE_STORAGE_CONNECTION_STRING"
     }
   ]
 }

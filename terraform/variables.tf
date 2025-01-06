@@ -26,3 +26,30 @@ variable "storage-name" {
   type        = string
   default     = "storage4252"
 }
+
+variable "slack_bot_token" {
+  description = "Slack bot token for sendMessage function"
+  type        = string
+  sensitive = true
+}
+
+variable "slack_bot_username" {
+  description = "Slack bot username for sendMessage function"
+  type        = string
+}
+
+variable "slack_channel" {
+  description = "The Slack channel to which the sendMessage function will send notifications"
+  type        = string
+}
+
+variable "discord_bot_token" {
+  description = "Discord bot token for sendMessage function"
+  type        = string
+  sensitive = true
+}
+
+variable "discord_channel" {
+  description = "The Discord channel to which the sendMessage function will send notifications"
+  type        = string
+}

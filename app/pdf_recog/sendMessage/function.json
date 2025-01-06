@@ -6,7 +6,7 @@
       "type": "blobTrigger",
       "direction": "in",
       "path": "archive/{name}",
-      "connection": "AzureWebJobsStorage"
+      "connection": "AZURE_STORAGE_CONNECTION_STRING"
     }
   ]
 }

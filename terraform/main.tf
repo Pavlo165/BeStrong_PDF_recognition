@@ -76,6 +76,11 @@ resource "azurerm_linux_function_app" "function_app" {
     "AZURE_FORM_RECOGNIZER_ENDPOINT"         = azurerm_cognitive_account.document_intelligence.endpoint
     "AZURE_FORM_RECOGNIZER_KEY"              = azurerm_cognitive_account.document_intelligence.primary_access_key
     "APPLICATION_INSIGHTS_CONNECTION_STRING" = azurerm_application_insights.function_app_insights.connection_string
+    "SLACK_BOT_TOKEN"                        = var.slack_bot_token
+    "SLACK_BOT_USERNAME"                     = var.slack_bot_username
+    "SLACK_CHANNEL"                          = var.slack_channel
+    "DISCORD_BOT_TOKEN"                      = var.discord_bot_token
+    "DISCORD_CHANNEL"                        = var.discord_channel
   }
 
   identity {
