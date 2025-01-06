@@ -17,6 +17,7 @@ pr:
 
 variables:
 - group: Azure
+- group: bot-for-dev
 
 stages:
   - stage: Plan
