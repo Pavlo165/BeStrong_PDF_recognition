@@ -64,7 +64,11 @@ stages:
             displayName: "Terraform Plan"
             env:
               TF_VAR_slack_bot_token: $(TF_VAR_slack_bot_token)
+              TF_VAR_slack_bot_username: $(TF_VAR_slack_bot_username)
+              TF_VAR_slack_channel: $(TF_VAR_slack_channel)
               TF_VAR_discord_bot_token: $(TF_VAR_discord_bot_token)
+              TF_VAR_discord_channel: $(TF_VAR_discord_channel)
+
           
           # Розгортання змін
           - task: TerraformTaskV4@4
@@ -77,4 +81,7 @@ stages:
             displayName: "Terraform Apply"
             env:
               TF_VAR_slack_bot_token: $(TF_VAR_slack_bot_token)
+              TF_VAR_slack_bot_username: $(TF_VAR_slack_bot_username)
+              TF_VAR_slack_channel: $(TF_VAR_slack_channel)
               TF_VAR_discord_bot_token: $(TF_VAR_discord_bot_token)
+              TF_VAR_discord_channel: $(TF_VAR_discord_channel)
