@@ -43,7 +43,7 @@ def main(myblob: InputStream):
 
         # Upload JSON to Azure Blob Storage
         container_client = blob_service_client.get_container_client(container_name_archive)
-        container_client.upload_blob(file_name, json.dumps(result_json))
+        container_client.upload_blob(file_name + ".json", json.dumps(result_json))
         logging.info("PDF processed and JSON uploaded successfully.")
         
     except Exception as e:
