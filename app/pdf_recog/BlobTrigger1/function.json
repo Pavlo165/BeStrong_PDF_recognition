@@ -1,0 +1,12 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "name": "myblob",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "import/{name}",
+      "connection": "storage4252envdev_STORAGE"
+    }
+  ]
+}
