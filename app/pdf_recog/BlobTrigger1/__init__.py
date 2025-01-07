@@ -20,7 +20,7 @@ def main(myblob: InputStream):
         logging.info(f"Python blob trigger function processed blob \n"
                      f"Name: {myblob.name}\n"
                      f"Blob Size: {myblob.length} bytes")
-        print("VSE OK")
+        # print("VSE OK")
 
          # Підключення до Blob Storage
         blob_service_client = BlobServiceClient.from_connection_string(connection_string)
