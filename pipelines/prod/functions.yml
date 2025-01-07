@@ -1,0 +1,43 @@
+trigger:
+  branches:
+    include:
+      - prod
+  paths:
+    include:
+      - app/**
+
+pr:
+  branches:
+    exclude:
+      - "*"
+
+
+variables:
+- group: Azure
+- group: func-app-prod
+
+stages:
+- stage: BuildAndPush
+  displayName: 'Build and Push Archive to ACR'
+  jobs:
+  - job: BuildAndPushJob
+    displayName: 'Create Archive and Push to ACR'
+    steps:
+    - script: |
+        # Створення архіву з папки app/pdf_recon
+        zip -r pdf_recog_archive.zip .
+      displayName: 'Create Archive'
+      workingDirectory: $(System.DefaultWorkingDirectory)/app/pdf_recog
+
+    - task: AzureCLI@2
+      displayName: "Login to Azure and push actifact"
+      inputs:
+        azureSubscription: $(ServiceConnection)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          az functionapp deployment source config-zip --name $(func_app_name) \
+          --resource-group $(resourse_group) \
+          --src pdf_recog_archive.zip \
+          --build-remote
+        workingDirectory: $(System.DefaultWorkingDirectory)/app/pdf_recog
