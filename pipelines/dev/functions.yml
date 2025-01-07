@@ -17,6 +17,7 @@ pr:
 
 variables:
 - group: Azure
+- group: func-app-dev
 
 stages:
 - stage: BuildAndPush
@@ -38,5 +39,8 @@ stages:
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
-          az functionapp deployment source config-zip --name infra-function-app-dev --resource-group PDF_recognition-dev --src pdf_recog_archive.zip --build-remote
+          az functionapp deployment source config-zip --name $(func_app_name) \
+          --resource-group $(resourse_group) \
+          --src pdf_recog_archive.zip \
+          --build-remote
         workingDirectory: $(System.DefaultWorkingDirectory)/app/pdf_recog
