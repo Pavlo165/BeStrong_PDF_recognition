@@ -68,7 +68,7 @@ resource "azurerm_linux_function_app" "function_app" {
   }
 
   app_settings = {
-    "FUNCTIONS_WORKER_RUNTIME"               = "python" # runtime
+    "FUNCTIONS_WORKER_RUNTIME"               = "python"
     "WEBSITE_RUN_FROM_PACKAGE"               = "1"     # Налаштування для запуску із пакету 
     "AZURE_STORAGE_CONNECTION_STRING"        = azurerm_storage_account.storage_account.primary_connection_string
     "AZURE_BLOB_CONTAINER_NAME_ARCHIVE"      = azurerm_storage_container.blob_container_archive.name
