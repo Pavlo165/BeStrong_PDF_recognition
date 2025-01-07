@@ -13,6 +13,7 @@ pr:
 
 variables:
 - group: Azure
+- group: bot-for-prod
 
 stages:
   - stage: Plan
@@ -58,7 +59,13 @@ stages:
               environmentServiceNameAzureRM: $(ServiceConnection)
               workingDirectory: $(System.DefaultWorkingDirectory)/terraform
             displayName: "Terraform Plan"
-          
+            env:
+              TF_VAR_slack_bot_token: $(TF_VAR_slack_bot_token)
+              TF_VAR_slack_bot_username: $(TF_VAR_slack_bot_username)
+              TF_VAR_slack_channel: $(TF_VAR_slack_channel)
+              TF_VAR_discord_bot_token: $(TF_VAR_discord_bot_token)
+              TF_VAR_discord_channel: $(TF_VAR_discord_channel)
+            
           # Розгортання змін
           - task: TerraformTaskV4@4
             inputs:
@@ -68,6 +75,12 @@ stages:
               commandOptions: '-auto-approve'
               workingDirectory: $(System.DefaultWorkingDirectory)/terraform
             displayName: "Terraform Apply"
+            env:
+              TF_VAR_slack_bot_token: $(TF_VAR_slack_bot_token)
+              TF_VAR_slack_bot_username: $(TF_VAR_slack_bot_username)
+              TF_VAR_slack_channel: $(TF_VAR_slack_channel)
+              TF_VAR_discord_bot_token: $(TF_VAR_discord_bot_token)
+              TF_VAR_discord_channel: $(TF_VAR_discord_channel)
 
 # розкометую коли буде env
 # - stage: Apply
