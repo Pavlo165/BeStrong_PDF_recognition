@@ -11,13 +11,13 @@ output "storage_account_primary_key" {
 }
 
 # Output для Storage Container archive
-output "blob_container_name" {
+output "blob_container_name_achive" {
   description = "The name of the created Blob Container"
   value       = azurerm_storage_container.blob_container_archive.name
 }
 
 # Output для Storage Container import
-output "blob_container_name" {
+output "blob_container_name_import" {
   description = "The name of the created Blob Container"
   value       = azurerm_storage_container.blob_container_import.name
 }
