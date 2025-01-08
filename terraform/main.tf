@@ -28,7 +28,7 @@ resource "azurerm_storage_container" "blob_container_archive" {
 resource "azurerm_storage_share" "file_share" {
   name                 = "shared-files"
   storage_account_id = azurerm_storage_account.storage_account.id
-  quota                = 50
+  quota                = 100
 }
 
 # 📦 App Service Plan
